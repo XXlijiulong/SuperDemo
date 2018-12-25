@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.cn.dao.role.GoodsDao">
+    <select id="checkBill" resultType="edu.cn.Bill">
+        select * from smbms_bill where id=#{id};
+    </select>
+    <update id="modify" parameterType="edu.cn.Bill">
+        update smbms_bill
+        <set>
+            <if test="id != null">id = #{id}</if>
+            <if test="billCode != null"> billCode= #{billCode}</if>
+            <if test="productName != null">productName = #{productName}</if>
+            <if test="productDesc != null">productDesc = #{productDesc}</if>
+            <if test="productUnit != null"> productUnit = #{productUnit}</if>
+            <if test="productCount != null">productCount = #{productCount}</if>
+            <if test="totalPrice != null">totalPrice = #{totalPrice}</if>
+            <if test="isPayment != null"> isPayment = #{isPayment}</if>
+            <if test="createdBy != null">createdBy = #{createdBy}</if>
+            <if test="creationDate != null">creationDate = #{creationDate}</if>
+            <if test="modifyBy != null"> modifyBy = #{modifyBy}</if>
+            <if test="modifyDate != null">modifyDate = #{modifyDate}</if>
+            <if test="providerId != null">providerId = #{providerId}</if>
+        </set>
+        where billCode = #{billCode}
+    </update>
+
+
+    <!-- 根据billCode删除账单信息 -->
+    <delete id="deleteBillById" parameterType="String">
+        delete from smbms_bill where billCode = #{billCode}
+    </delete>
+
+    <!-- 增加账单信息 -->
+    <insert id="add" parameterType="edu.cn.Bill">
+        insert into smbms_bill (id,billCode,productName,productDesc,productUnit,productCount,totalPrice,isPayment,createdBy,creationDate,modifyBy,modifyDate,providerId)
+        values (#{id},#{billCode},#{productName},#{productDesc},#{productUnit},#{productCount},#{totalPrice},#{isPayment},#{createdBy},#{creationDate},#{modifyBy},#{modifyDate},#{providerId})
+    </insert>
+</mapper>
